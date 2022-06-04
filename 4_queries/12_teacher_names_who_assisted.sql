@@ -1,13 +1,11 @@
 -- Retrieve the names of all the teachers who performed an assistance
 -- request during a cohort
 
-SELECT teachers.name as teacher
-FROM assistance_requests
-JOIN teachers ON teachers.id = teacher_id
-GROUP BY teachers.name
-ORDER BY teachers.name;
+SELECT DISTINCT teachers.name as teacher, cohorts.name as cohort
+FROM teachers
+JOIN assistance_requests ON teacher_id = teachers.id
+JOIN students ON student_id = students.id
+JOIN cohorts ON cohort_id = cohorts.id
+WHERE cohorts.name = 'JUL02'
+ORDER BY teacher;
 
--- SELECT COUNT(assistance_requests.*) as total_assistances, teachers.name
--- FROM assistance_requests
--- JOIN teachers ON teachers.id = teacher_id
--- GROUP BY teachers.name;
